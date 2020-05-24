@@ -10,6 +10,9 @@ class OscarSpider(scrapy.Spider):
     start_urls = ['https://oscar.gatech.edu/pls/bprod/bwckctlg.p_disp_dyn_ctlg']
     base = 'https://oscar.gatech.edu'
 
+    limit = 1
+    count = 0
+
     field_formats = {
         "Grade Basis": "grade_basis",
         "Restrictions": "restrictions",
@@ -47,7 +50,9 @@ class OscarSpider(scrapy.Spider):
         urls = response.css("td.nttitle a::attr(href)").re(".*detail.*")
         # only pulls urls for course pages
         for url in urls:
-            yield scrapy.Request(self.base+url, self.parse_detail)
+            # if self.count < self.limit:
+            #     self.count += 1
+                yield scrapy.Request(self.base+url, self.parse_detail)
 
     def parse_detail(self, response):
         loader = CourseLoader(item=items.Course(), response=response)

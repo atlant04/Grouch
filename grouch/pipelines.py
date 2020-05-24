@@ -7,10 +7,11 @@
 
 
 import pymongo
+from pymongo import ReturnDocument
 
 class MongoPipeline:
 
-    collection_name = 'courses'
+    collection_name = 'test'
 
     def __init__(self, mongo_uri, mongo_db):
         self.mongo_uri = mongo_uri
@@ -33,5 +34,9 @@ class MongoPipeline:
         self.client.close()
 
     def process_item(self, item, spider):
-        self.db[self.collection_name].insert_one(dict(item))
+        course = dict(item)
+        filtered = {"identifier": course["identifier"]}
+        result = self.db[self.collection_name].update_one(filtered, {"$set": course}, upsert=True)
+        if result.modified_count > 0:
+            self.db[self.collection_name].update_one(filtered, {"$set": {"updated": True}})
         return item

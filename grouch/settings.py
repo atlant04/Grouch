@@ -21,9 +21,11 @@ MONGO_DATABASE = "Oscar"
 # -1 for all of them
 SEMESTER_STOP = 1
 # empty for all of them
-SUBJECTS = []
+SUBJECTS = ["APPH"]
 SEMESTER_ACCEPT = ("02", "08", "05")  # Has to be a tuple
 
+
+#CLOSESPIDER_PAGECOUNT = 4
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'grouch (+http://www.yourdomain.com)'
 
