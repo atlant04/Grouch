@@ -14,11 +14,14 @@ BOT_NAME = 'grouch'
 SPIDER_MODULES = ['grouch.spiders']
 NEWSPIDER_MODULE = 'grouch.spiders'
 
+MONGO_URI = "mongodb+srv://admin:I83zA2NLzlb56URb@oscar-ima5l.mongodb.net/test?retryWrites=true&w=majority"
+MONGO_DATABASE = "Oscar"
+
 
 # -1 for all of them
 SEMESTER_STOP = 1
 # empty for all of them
-SUBJECTS = ['CS']
+SUBJECTS = []
 SEMESTER_ACCEPT = ("02", "08", "05")  # Has to be a tuple
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -67,9 +70,9 @@ SEMESTER_ACCEPT = ("02", "08", "05")  # Has to be a tuple
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'grouch.pipelines.SomePipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'grouch.pipelines.MongoPipeline': 1000,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
